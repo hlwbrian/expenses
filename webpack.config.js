@@ -18,6 +18,9 @@ module.exports = {
             }
         }]
     },
+    experiments: {
+        topLevelAwait: true,
+    },
     devServer: {
         contentBase: `${__dirname}/public/`,
         historyApiFallback: true
