@@ -12,7 +12,7 @@ const AppRouter = (props) => {
             <div>
                 <Switch>
                     <Route path="/before" component={BeforeLogin} />
-                    <Route path="/after" component={AfterLogin} />
+                    <Route path="/home" component={AfterLogin} />
                 </Switch>
             </div>
         </Router>

@@ -1,14 +1,16 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { startLogout } from '../actions/auth';
+import Header from './Header';          //IMPORT Component: Header
+import Main from './Main';    //IMPORT Component: Main
+import { useSelector } from 'react-redux';
 
 const AfterLogin = () => {
-    const dispatch = useDispatch();
-
+    const userEmail = useSelector( state => state.auth.email );
+    
     return (
         <div>
-            AfterLogin page (/src/components/AfterLogin.js)
-            <button onClick={() => dispatch(startLogout())}>LOGOUT</button>
+            <Header />
+            <p>Your ID: {userEmail}</p>
+            <Main />
         </div>
     )
 };
