@@ -36,7 +36,6 @@ firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     history.push('/home');
     store.dispatch(login(user.uid, user.email));
-    //TODO: store user info afterwards
   } 
    //IF User logged-out
   else {
