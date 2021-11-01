@@ -9,8 +9,9 @@ export const addIncome = (newIncome) => ({
   newIncome
 });
 
-export const removeIncome = () => ({
-  type: 'REMOVE_INCOME'
+export const removeIncome = (removeObj) => ({
+  type: 'REMOVE_INCOME',
+  removeObj
 });
 
 export const addExpense = (newExpense) => ({
@@ -18,6 +19,7 @@ export const addExpense = (newExpense) => ({
   newExpense
 });
 
-export const removeExpense = () => ({
-  type: 'REMOVE_EXPENSE'
+export const removeExpense = (removeObj) => ({
+  type: 'REMOVE_EXPENSE',
+  removeObj
 });
