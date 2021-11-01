@@ -2,11 +2,11 @@ import React from 'react';
 import 'react-dates/initialize';
 import database from '../firebase/firebase';
 import { useSelector, useDispatch } from 'react-redux';
-import { addExpense, load } from '../actions/statement';
+import { addIncome, load } from '../actions/statement';
 
 let isInit = true;
 
-const ExpenseForm = () => {
+const IncomeForm = () => {
     //Get var value from redux
     const uid = useSelector( state => state.auth.uid );
     
@@ -14,19 +14,18 @@ const ExpenseForm = () => {
     const dispatch = useDispatch();
 
     //SET redux state from Firebase storage
-
     if(isInit){
         let expenseArr = [];
         let incomeArr = [];
 
-        //Get expense data from storage
+        //Get income data from storage
         database.ref('users/').child(uid).get().then((snapshot) => {
             if (snapshot.exists()) { //If data exists
                 //make sure expense has data
                 if(snapshot.val().expense !== undefined){
                     Object.keys(snapshot.val().expense).map((key) => expenseArr.push(snapshot.val().expense[key]));
                 }
-
+                
                 //make sure income has data
                 if(snapshot.val().income !== undefined){
                     Object.keys(snapshot.val().income).map((key) => incomeArr.push(snapshot.val().income[key]));
@@ -42,33 +41,33 @@ const ExpenseForm = () => {
         isInit = false; //only run when page reload
     }
 
-    const newExpense = (e) => {
+    const newIncome = (e) => {
         e.preventDefault(); //Stop page reload
 
         //Get all the required fields value
-        let expenseDate = document.querySelector('#calendar #date').value;
-        let expenseAmount = document.getElementById('expenseAmountValue').value;
-        let expenseType = '';
-        for(let value of document.getElementsByName('expenseType')){
+        let incomeDate = document.querySelector('#calendar #date').value;
+        let incomeAmount = document.getElementById('incomeAmountValue').value;
+        let incomeType = '';
+        for(let value of document.getElementsByName('incomeType')){
             if(value.checked){
-                expenseType = value.id
+                incomeType = value.id
             }
         }
         
         //Check if all fields contains value
-        if( (expenseDate && expenseAmount && expenseType) !== '' ){
+        if( (incomeDate && incomeAmount && incomeType) !== '' ){
             //Push The Records into Firebase 'Realtime-Database'
-            database.ref('users/'+uid+'/expense').push({
-                date: expenseDate,
-                amount: expenseAmount,
-                type : expenseType
+            database.ref('users/'+uid+'/income').push({
+                date: incomeDate,
+                amount: incomeAmount,
+                type : incomeType
             });
 
             //Update Redux Expense Object
-            dispatch(addExpense({
-                date: expenseDate,
-                amount: expenseAmount,
-                type : expenseType
+            dispatch(addIncome({
+                date: incomeDate,
+                amount: incomeAmount,
+                type : incomeType
             }));
         }else{
             alert('Please enter all the info');
@@ -78,24 +77,24 @@ const ExpenseForm = () => {
     //Component HTML DOM
     return (
         <div>
-            <h3>[Expense Form]</h3>
+            <h3>[Income Form]</h3>
             
-            <form onSubmit={newExpense}>
-                <div id="expenseRadio">
-                    <input type="radio" id="food" name="expenseType" value="Food"/>
-                    <label>Food</label>
-                    <input type="radio" id="social" name="expenseType" value="Social" />
-                    <label>Social</label>
-                    <input type="radio" id="traffic" name="expenseType" value="Traffic" />
-                    <label>Traffic</label>
+            <form onSubmit={newIncome}>
+                <div id="incomeRadio">
+                    <input type="radio" id="salary" name="incomeType" value="Salary"/>
+                    <label>Salary</label>
+                    <input type="radio" id="bonus" name="incomeType" value="Bonus" />
+                    <label>Bonus</label>
+                    <input type="radio" id="invesment" name="incomeType" value="Invesment" />
+                    <label>Invesment</label>
                 </div>
-                <div id="expenseAmount">
-                    <input type="number" name="expenseAmountValue" id="expenseAmountValue" />
+                <div id="incomeAmount">
+                    <input type="number" name="incomeAmountValue" id="incomeAmountValue" />
                 </div>
-                <button type="submit">UPDATE</button>
+                <button type="submit">ADD</button>
             </form>
         </div>
     );
 }
 
-export default ExpenseForm;
+export default IncomeForm;

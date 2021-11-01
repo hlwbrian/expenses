@@ -15,6 +15,10 @@ export default (state = {}, action) => {
       };
     case 'ADD_INCOME':
       //push new income object into the income array
+      return {
+        income:  [...state.income, action.newIncome],
+        expense: state.expense
+      };
       return {};
     case 'REMOVE_INCOME':
       //remove target income object from income array

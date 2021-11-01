@@ -4,8 +4,9 @@ export const load = (expenseArr, incomeArr) => ({
   income: incomeArr
 });
 
-export const addIncome = () => ({
-  type: 'ADD_INCOME'
+export const addIncome = (newIncome) => ({
+  type: 'ADD_INCOME',
+  newIncome
 });
 
 export const removeIncome = () => ({
