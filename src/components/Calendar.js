@@ -10,10 +10,16 @@ const Calendar = () => {
     const dispatch = useDispatch();
     const [createdAt, setCreatedAt] = useState(moment());
     const [calendarFocused, setCalendarFocused] = useState(false);
-    const onDateChange = (createdAt) => {     
+
+    const onDateChange = (createdAt) => {
         if (createdAt) {
           setCreatedAt(createdAt);
-          dispatch( setDate(createdAt.format('L')) ) //todo set default and use dispatch
+          dispatch( setDate(createdAt.format('L')) );
+        }
+
+        //For Summary Page
+        if(document.querySelector('.selectedDateRange') !== null){
+            document.querySelector('.selectedDateRange').innerText = createdAt.format('L');
         }
     };
     const onFocusChange = ({ focused }) => {

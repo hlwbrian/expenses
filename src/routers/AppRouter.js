@@ -3,6 +3,7 @@ import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import BeforeLogin from '../components/BeforeLogin';
 import AfterLogin from '../components/AfterLogin';
+import SummaryPage from '../components/SummaryPage';
 
 export const history = createHistory();
 
@@ -13,6 +14,7 @@ const AppRouter = (props) => {
                 <Switch>
                     <Route path="/before" component={BeforeLogin} />
                     <Route path="/home" component={AfterLogin} />
+                    <Route path="/summary" component={SummaryPage} />
                 </Switch>
             </div>
         </Router>
